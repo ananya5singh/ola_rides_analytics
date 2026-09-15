@@ -1,6 +1,6 @@
 create database ola_rides_analysis;
 use ola_rides_analysis;
--- cresting table
+-- creating table
 create table bookings(
 date date,
 time time,
@@ -22,7 +22,7 @@ ride_distance int,
 driver_ratings varchar(50),
 customer_rating varchar(50)
 );
--- loaded table in mysql 
+-- loading table in mysql workbench
 load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/bookings.csv' into table bookings
 fields terminated by ','
 optionally enclosed by '"'
@@ -38,6 +38,7 @@ select count(*) from bookings;
 truncate table bookings;
 
 select * from bookings where booking_status="success"; 
+select customer_id,count(*) from bookings group by customer_id having count(*)>1; -- duplicate customer id exists
  
 select count(*), booking_id from bookings group by booking_id having count(*)>1; -- check duplicate id 
 select distinct booking_status from bookings;
@@ -81,7 +82,7 @@ select vechicle_type ,sum(booking_value),
 round(sum(booking_value)*100/(select sum(booking_value) from bookings where booking_status="success"),2 )as RevenueINPercentage
 from bookings where booking_status="success"group by vechicle_type;
 
--- percentaf=ge of rides cancelled by customer and driver
+-- percentage of rides cancelled by customer and driver
 select booking_status, count(*) as total_cancelled,
 round(count(*)* 100 / (select count(*) from bookings where booking_status like '%cancel%'), 2) as percentage
 from bookings
@@ -100,11 +101,10 @@ from bookings where booking_status = 'success'
 group by payment_method order by total_transactions desc;
 -- average ride distance
 select avg(ride_distance) from bookings; -- 14 km 
--- min ,max and avg driver rating
+-- min ,max and avg driver rating and customer rating
 select min(driver_ratings), max(driver_ratings),round(avg(driver_ratings),2) from bookings;
 select min(customer_rating), max(customer_rating),round(avg(customer_rating),2) from bookings;
 
-select customer_id,count(*) from bookings group by customer_id having count(*)>1; -- duplicate customer id exists
 -- top 3 customer with most rides
 select customer_id ,count(*) as TopCustomer from bookings group by customer_id order by TopCustomer desc limit 3;
 
