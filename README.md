@@ -1,4 +1,4 @@
-# 🚕 Ola Rides Analytics Dashboard
+#  Ola Rides Analytics Dashboard
 
 **A SQL + Power BI project analyzing 100K+ ride bookings to uncover cancellation trends, revenue drivers, and demand patterns.**
 
