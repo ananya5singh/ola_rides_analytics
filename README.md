@@ -2,7 +2,7 @@
 
 **A SQL + Power BI project analyzing 100K+ ride bookings to uncover cancellation trends, revenue drivers, and demand patterns.**
 
-## 📌 Problem Statement
+## 📌 Problem Statement:
 Ola loses revenue whenever bookings don't convert into completed rides. This project analyzes 103,024 July 2024 bookings to find where rides are being lost, which vehicle types and payment methods drive the most revenue, and when demand peaks — to help reduce cancellations and improve driver allocation.
 
 ## 🗂️ Dataset
