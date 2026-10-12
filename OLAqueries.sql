@@ -35,7 +35,7 @@ ignore 1 rows
  @extra_column);
 select count(*) from bookings;
 
-truncate table bookings;
+-- truncate table bookings;
 
 select * from bookings where booking_status="success"; 
 select customer_id,count(*) from bookings group by customer_id having count(*)>1; -- duplicate customer id exists
@@ -93,14 +93,13 @@ select pickup_location,count(pickup_location) as totalpickupofLocation from book
 -- top 3 pickup location
 select pickup_location,count(pickup_location) as totalpickupofLocation from bookings group by pickup_location order by totalpickupofLocation desc limit 3;
 -- top 3 drop location
-select drop_location,count(drop_location) as totalpickupofLocation from bookings group by pickup_location order by totalpickupofLocation desc limit 3 ;  
--- most used pament method
+select drop_location, count(drop_location) as totaldropofLocation from bookings group by drop_location order by totaldropofLocation desc limit 3;-- most used pament method
 select payment_method, count(*) as total_transactions,
 round(count(*)* 100 / (select count(*) from bookings where booking_status = 'success'), 2) as percentage
 from bookings where booking_status = 'success'
 group by payment_method order by total_transactions desc;
 -- average ride distance
-select avg(ride_distance) from bookings; -- 14 km 
+select avg(ride_distance) from bookings where booking_status='Success'; -- 22.85 km 
 -- min ,max and avg driver rating and customer rating
 select min(driver_ratings), max(driver_ratings),round(avg(driver_ratings),2) from bookings;
 select min(customer_rating), max(customer_rating),round(avg(customer_rating),2) from bookings;
@@ -110,3 +109,22 @@ select customer_id ,count(*) as TopCustomer from bookings group by customer_id o
 
 select count(*) as total_cancelled from bookings
 where canceled_rides_by_drivers = 'Personal & Car related issue';
+
+-- booking value lost
+select sum(booking_value) as total_value,
+       sum(case when booking_status='Success' then booking_value else 0 end) as completed_value,
+       sum(case when booking_status<>'Success' then booking_value else 0 end) as lost_value
+from bookings;  -- 56,534,614 | 35,080,467 | 21,454,147
+
+-- Driver Not Found
+select count(*) from bookings where booking_status = 'Driver Not Found';  -- 10,124
+
+-- rides cancelled by the drivers
+select canceled_rides_by_drivers, count(*) as total from bookings
+where canceled_rides_by_drivers <> 'null'
+group by canceled_rides_by_drivers order by total desc;
+
+-- ride cancelled by customers
+select canceled_rides_by_customer, count(*) as total from bookings
+where canceled_rides_by_customer <> 'null'
+group by canceled_rides_by_customer order by total desc;
