@@ -35,9 +35,7 @@ Most lost bookings come from the driver side. I'd fix three things first:
 1. **Cut driver cancellations.** Drivers cancel almost twice as often as customers (18.4K vs 10.5K).
 2. **Match every booking to a driver.** About 10.1K bookings never found one.
 3. **Make pickups reliable.** About 56% of customer cancellations happen because the driver isn't coming.
-1. **Cut driver cancellations.** Drivers cancel almost twice as often as customers (18.4K vs 10.5K).
-2. **Match every booking to a driver.** About 10.1K bookings never found one.
-3. **Make pickups reliable.** About 56% of customer cancellations happen because the driver isn't coming.
+
 
 ## ⚠️ Limitations
 One month of data, and failure rates are nearly identical across vehicles, hours and locations. There is no driver supply or wait-time data, so the cause of "Driver Not Found" can't be confirmed.
@@ -46,7 +44,7 @@ One month of data, and failure rates are nearly identical across vehicles, hours
 ![Dashboard](screenshot/OLA_dashboard_overview.png)
 
 ## 📁 Files in This Repo
-- `Ola_Rides_Dashboard.pbix` — Power BI dashboard
+- `OLA_RIDES_Dashboard.pbix` — Power BI dashboard
 - `OLAqueries.sql` — all SQL queries used
 - `screenshot/` — dashboard preview images
 
